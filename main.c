@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <GLFW/glfw3.h>
+#include <imgui/imgui.h>
 #include "header.h"
-#include "group.h"
 
 const char* GROUPS_DIRECTORY = "./groups/";
 
