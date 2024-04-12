@@ -1,1 +1,1 @@
-g++ -Wall -lglfw main.c -o main
+g++ -I./dependencies -Wall -lglfw -limgui main.c -o main
