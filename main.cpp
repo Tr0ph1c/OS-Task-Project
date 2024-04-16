@@ -1,15 +1,21 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <GLFW/glfw3.h>
-#include <imgui/imgui.h>
+#include <iostream>
+#include "wman.cpp"
 #include "header.h"
 
 const char* GROUPS_DIRECTORY = "./groups/";
 
 int main () {
+	if (!Init()) return 1;
 	printf("Welcome to User Manager System.");
 
 	LoadAllGroups();
+	
+	while (!glfwWindowShouldClose(window)) {
+		Input();
+		Render();
+	}
+	
+	Shutdown();
 	
 	return 0;
 }
