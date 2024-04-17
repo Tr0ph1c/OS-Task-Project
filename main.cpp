@@ -4,7 +4,7 @@
 #include "manager.c"
 #include "header.h"
 
-const char *GROUPS_DIRECTORY = "./groups/";
+const char* groups = "/etc/groups/";
 
 int main()
 {
