@@ -3,6 +3,14 @@
 #include <string.h>
 #include <stdbool.h>
 
+void toLowercase(char *str) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (isupper(str[i])) {
+            str[i] = tolower(str[i]);
+        }
+    }
+}
+
 // Check if the group is exist or not
 bool isGroupExist(char *groupName)
 {
@@ -80,4 +88,48 @@ void deleteGroup(char *groupName)
 	{
 		printf("There is NO group with this name\n");
 	}
+}
+
+void addUser(char *username, char *groupname) {
+    char check[200] = "groups ";
+    strcat(check, username);
+    strcat(check, " | grep ");
+    strcat(check, groupname);
+
+    if (system(check) == 0) {
+        printf("User Already Exists in this Group\n");
+    } else {
+        toLowercase(username);
+        toLowercase(groupname);
+
+        char command[200] = "sudo usermod -aG ";
+        strcat(command, groupname);
+        strcat(command, " ");
+        strcat(command, username);
+
+        system(command);
+        printf("User Added\n");
+    }
+}
+
+void deleteUser(char *username, char *groupname) {
+    char check[200] = "groups ";
+    strcat(check, username);
+    strcat(check, " | grep ");
+    strcat(check, groupname);
+
+    if (system(check) != 0) {
+        printf("User Doesn't Exist in this Group\n");
+    } else {
+        toLowercase(username);
+        toLowercase(groupname);
+
+        char command[200] = "sudo gpasswd -d ";
+        strcat(command, username);
+        strcat(command, " ");
+        strcat(command, groupname);
+
+        system(command);
+        printf("User Removed\n");
+    }
 }
