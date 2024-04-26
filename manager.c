@@ -133,3 +133,17 @@ void deleteUser(char *username, char *groupname) {
         printf("User Removed\n");
     }
 }
+
+// Add new user / delete existing user
+
+void addNewUser(char *username) {
+    char command[50]; 
+    sprintf(command, "sudo adduser %s", username);
+    system(command);
+}
+
+void remUser(char *username) {
+    char command[50]; 
+    sprintf(command, "sudo deluser %s", username);
+    system(command);
+}
