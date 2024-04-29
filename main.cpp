@@ -1,32 +1,24 @@
 #include <iostream>
+#include <thread>
 
 #include "wman.cpp"
-#include "manager.c"
 #include "header.h"
 
-const char* groups = "/etc/groups/";
+bool running = true;
 
 int main()
 {
-	if (!Init())
-		return 1;
-	printf("Welcome to User Manager System.");
-
+	if (!Init(&running)) return 1;
+	
 	LoadAllGroups();
 
-	while (!glfwWindowShouldClose(window))
+	while (!glfwWindowShouldClose(window) && running)
 	{
 		Input();
-		Render();
+		RenderWindow();
 	}
 
 	Shutdown();
 
 	return 0;
-}
-
-// Loads all groups from disk to memory in current session
-void LoadAllGroups()
-{
-	return;
 }

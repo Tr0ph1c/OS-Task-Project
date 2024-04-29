@@ -147,3 +147,17 @@ void remUser(char *username) {
     sprintf(command, "sudo deluser %s", username);
     system(command);
 }
+
+// Change user info
+
+void changeUsername (char *user, char *newName) {
+    char command[100];
+    sprintf(command, "sudo usermod -l %s %s", newName, user);
+    system(command);
+}
+
+void changeUserPassword (char *user, char *newPass) {
+    char command[100];
+    sprintf(command, "echo \"%s:%s\" | sudo chpasswd", user, newPass);
+    system(command);
+}

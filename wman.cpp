@@ -12,24 +12,32 @@
 
 GLFWwindow* window;
 
+bool* running_ptr;
+
 void error_callback (int error, const char* description) {
-    fprintf(stderr, "GLFW Error: %s\n", description);
+    fprintf(stderr, "stderr Error: %s\n", description);
 }
 
-int Init () {
-    glfwSetErrorCallback(error_callback);
-    if (!glfwInit()) {std::cout << "GLFW init failed"; return 0;}
-    window = glfwCreateWindow(WIDTH, HEIGHT, "Window", NULL, NULL);
-    if (!window) {std::cout << "Window failed to create"; return 0;}
-    glfwMakeContextCurrent(window);
-    
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void) io;
-    ImGui::StyleColorsDark();
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 330");
-    
-    return 1;
+int Init (bool* running) {
+	running_ptr = running;
+	glfwSetErrorCallback(error_callback);
+	if (!glfwInit()) {std::cout << "GLFW init failed"; return 0;}
+	const GLFWvidmode * videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+	window = glfwCreateWindow(WIDTH, HEIGHT, "Window", NULL, NULL);
+	glfwSetWindowPos(window,
+                 (videoMode->width - WIDTH) / 2,
+                 (videoMode->height - HEIGHT) / 2); 
+	if (!window) {std::cout << "Window failed to create"; return 0;}
+	glfwMakeContextCurrent(window);
+
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void) io;
+	ImGui::StyleColorsDark();
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 330");
+
+	return 1;
 }
 
 void Input () {
@@ -41,7 +49,7 @@ void Input () {
 	}
 }
 
-void Render () {
+void RenderWindow () {
 	glClearColor(0.2f, 0.2f, 0.2f, 1);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
@@ -49,7 +57,10 @@ void Render () {
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 	
-	RenderGUI();
+	ImGui::SetNextWindowPos({0, 0});
+	ImGui::SetNextWindowSize({WIDTH, HEIGHT});
+		
+	RenderGUI(running_ptr);
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
