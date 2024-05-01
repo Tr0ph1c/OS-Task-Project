@@ -23,8 +23,9 @@ int Init (bool* running) {
 	glfwSetErrorCallback(error_callback);
 	if (!glfwInit()) {std::cout << "GLFW init failed"; return 0;}
 	const GLFWvidmode * videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-	glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
-	window = glfwCreateWindow(WIDTH, HEIGHT, "Window", NULL, NULL);
+	//glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+	window = glfwCreateWindow(WIDTH, HEIGHT, "Group/User Manager GUI", NULL, NULL);
 	glfwSetWindowPos(window,
                  (videoMode->width - WIDTH) / 2,
                  (videoMode->height - HEIGHT) / 2); 

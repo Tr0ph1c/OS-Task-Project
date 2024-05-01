@@ -7,7 +7,7 @@
 #define SPACE 150
 #define GAP Dummy(ImVec2(0.0f, 20.0f));
 #define MAX_INP 50
-#define FLAGS ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoSavedSettings
+#define FLAGS ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoTitleBar
 
 using namespace std;
 using namespace ImGui;
@@ -248,7 +248,7 @@ void RenderGUI(bool* running) {
 			sprintf(sysc, "getent passwd %s | cut -d ':' -f 5", selected_user->username);
 			fpipe = (FILE*)popen(sysc, "r"); fgets(selected_user_tip, MAX_INP, fpipe); pclose(fpipe);
 			FixBuffer(selected_user_tip, MAX_INP);
-			sprintf(sysc, "chage -i -l %s | grep 'Account expires' | cut -d ':' -f 2", selected_user->username);
+			sprintf(sysc, "chage -i -l %s | grep 'Account expires' | cut -d ':' -f 2 | sed 's/ //g'", selected_user->username);
 			fpipe = (FILE*)popen(sysc, "r"); fgets(selected_user_exp, 11, fpipe); pclose(fpipe);
 			FixBuffer(selected_user_exp, 11);
 		}

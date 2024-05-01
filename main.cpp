@@ -14,6 +14,7 @@ int main()
 
 	while (!glfwWindowShouldClose(window) && running)
 	{
+		std::this_thread::sleep_for(std::chrono::milliseconds(15));
 		Input();
 		RenderWindow();
 	}
