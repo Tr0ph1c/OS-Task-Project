@@ -1,0 +1,15 @@
+.\" Manpage for main.
+.TH man 8 "04 May 2024" "1.0" "main man page"
+.SH NAME
+main \- opens the GUI window that controls the whole program
+.SH SYNOPSIS
+./build.sh
+sudo ./main
+.SH DESCRIPTION
+main is the main access point for the set of programs and files that manage groups and users on a linux based machine. It is displayed with GLFW context window that renders using OpenGL and uses imgui GUI elements. It is composed of a main manager window where you can see groups and the users that are in each group with the option to remove users from any group, a group manager window where you can delete individual groups or add new ones, and a user manager window where you can delete individual users or create new ones and add them to any group on the system.
+.SH OPTIONS
+main does not take any options nor parameters.
+.SH BUGS
+No known bugs.
+.SH AUTHORS
+Ahmed Mahmoud, Ahmed Alaa, Osama Ahmed, Ahmed Hamdi, Adham Basem, Mahmoud Sobhi
