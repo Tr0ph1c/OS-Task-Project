@@ -3,5 +3,6 @@ main.exe
 build.bat
 tempcoderunnerfile.c
 dependencies/*
+dependencies.tar.gz
 core
 imgui.ini
