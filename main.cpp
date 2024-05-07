@@ -2,7 +2,6 @@
 #include <thread>
 
 #include "wman.cpp"
-#include "header.h"
 
 bool running = true;
 
